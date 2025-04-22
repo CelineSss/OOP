@@ -1,0 +1,9 @@
+TP343434,Eddie334,Eddie Tan,eddie@gmail.com,yellow
+TP123456,Celine456,Zhen Lynn,celine@gmail.com,sushii
+TP852409,Jennie409,Jennie Kim,jennie@gmail.com,kim8524
+TP369082,Simtian082,Sim Tian,simtian@gmail.com,seventeen
+TP472950,Mingyan472,Ming Yann,ming@gmail.com,coffee
+TP123123,Tingting123,Ting Ting,ting@gmail.com,
+TP135754,Peiwen123,Pei Wen,peiwen@gmai.com,yellow
+TP053298,Serene298,Serene Loh,serene@gmail.com,jackson
+TP345345,Peiwen345,Pei Wen,peiwen@gmail.com,yellow

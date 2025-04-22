@@ -1,0 +1,40 @@
+*******************************************
+*                APU Hostel Receipt               *
+*******************************************
+
+Date: Mon Feb 10 14:03:49 GMT+08:00 2025
+
+Student ID: TP343434
+Room Number: B-8-10
+Payment Method: Online Banking
+
+-------------------------------------------------
+Received Amount: RM 800.00
+Total Amount: RM 800.00
+Change Due: RM 0.00
+-------------------------------------------------
+
+Thank you for your payment!
+
+=================================================
+
+*******************************************
+*                APU Hostel Receipt               *
+*******************************************
+
+Date: Mon Feb 10 14:40:45 GMT+08:00 2025
+
+Student ID: TP343434
+Room Number: B-8-10
+Payment Method: Online Banking
+
+-------------------------------------------------
+Received Amount: RM 800.00
+Total Amount: RM 800.00
+Change Due: RM 0.00
+-------------------------------------------------
+
+Thank you for your payment!
+
+=================================================
+
