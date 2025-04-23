@@ -1,8 +1,0 @@
-TP123321,Ningning123,Ning Ning,ningning@gmail.com,coffee
-TP078954,Zixiang954,Low Zi Xiang,zixiang@gmail.com,morning
-TP135790,Jackson135,Jackson Wang,jackson@.gmail.com,pizza
-TP098765,Kimming765,Kim Ming,kimming@gmail.com,kimming
-TP724980,Daisy980,Daisy Yong,daisy@gmail.com,blueberry
-TP285038,Cherry285,Cherry Choi,cherry@gmail.com,berryberry
-TP097643,Peiwen643,Kendal Koi,peiwen@gmail.com,morning
-ST429753,Genie753,Genie Yap,genie@gmail.com,hotpot

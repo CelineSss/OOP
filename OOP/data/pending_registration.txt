@@ -1,3 +1,0 @@
-TP458901,Kaiting901,Kai Ting,kaiting@gmail.com,milktea
-ST579032,Kylie9032,Kylie Keth,kylie@gmail.com,fashion
-ST258643,Xinling643,Xin Ling,xinling@gmail.com,purple

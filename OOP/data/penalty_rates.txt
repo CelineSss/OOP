@@ -1,2 +1,0 @@
-P001,Penalty,Late Payment,50.0,17-01-2025
-P002,Penalty,Weekly Increment,5.0,17-01-2025
