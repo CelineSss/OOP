@@ -1,0 +1,8 @@
+ST567567,Minkoon567,Min Koon,minkoon@gmail.com,ssushi
+ST345345,EthanLiew345,Ethan Liew,ethan@gmail.com,moonlight
+ST123456,Sherry123,Sherry Shi,sherry@gmail.com,
+ST246802,yongLyn246,Yong Lyn,yonglyn@gmail.com,sushi>
+ST469320,Yingying320,Ying Ying,ying@gmail.com,pizzahut
+ST362806,Karenkim806,Karen Kim,karen@gmail.com,carrot
+ST121212,Zihao1212,Zi Hao,zihao@gmail.com,
+ST343434,Bobby3434,Bobby Yap,bobby@gmail.com,vegetable

@@ -1,0 +1,30 @@
+Location: APU Hostel Block A, Technology Park Malaysia, Bukit Jalil, 57000 Kuala Lumpur
+Facilities:
+- 24/7 Security Service
+- High-Speed WiFi
+- Laundry Room
+- Study Room
+- Parking Space
+Room Types:
+1. Single Room
+- Rate: RM800
+- Size: 120
+2. Share Room (2)
+- Rate: RM500
+- Size: 180
+3. Share Room (4)
+- Rate: RM400
+- Size: 220
+Room Amenities:
+- Air Conditioning
+- Study Table
+- Wardrobe
+- Single Bed
+- Attached Bathroom
+Common Facilities:
+- Pantry on each floor
+- TV Lounge
+- Mini Gym
+- Prayer Room
+- Meeting Room
+Lounge Hours:

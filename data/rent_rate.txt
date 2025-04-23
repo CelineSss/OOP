@@ -1,0 +1,3 @@
+R001,Rental,Single,1000.0,17-01-2025
+R002,Rental,Shared(4),700.0,09-02-2025
+R003,Rental,Shared(6),500.0,10-02-2025
