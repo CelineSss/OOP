@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Quizzing You</title>
+    <header class="header">
+        <a href="HomePage.T.html" class="home">
+            <div class="left-section">
+                <img src="images/logo2.png" alt="Logo" class="logo">
+            </div>
+        </a>
+        <div class="center-section">
+        </div>
+        <div class="right-section">
+            <div class="icons">
+                <img src="images/user.icon.png" alt="User" id="userIcon" onclick="openPopup('teacher')">
+                <!-- profile-->
+                <div id="popup" class="popup" >
+                    <button class="close" onclick="closePopup()">X</button>
+                    <h2>Profile</h2>    
+                    
+                    <div class="form-group">
+                        <label for="Id">ID:</label>
+                        <input type="text" id="userID" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullname">Fullname:</label>
+                        <input type="text" id="fullname"><br>
+                        <span id="nameError" class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email"><br>
+                        <span id="emailError" class="error-message"></span>
+                    </div>
+
+                    <div class="button-container">
+                        <button class="resetpw" onclick="window.location.href='forgot_pw.T.html'">Reset Password</button><br>
+                        <button class="save" id="saveProfileBtn">Save Changes</button>
+                    </div>
+                </div>    
+                <link rel="stylesheet" href="popupStyles.css">
+                <script src="popupScript.js"></script>       
+                <img src="images/setting.icon.png" alt="Settings">
+            </div>
+        </div>
+    </header>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            text-align: center;
+            background: linear-gradient(135deg, #E6FFE6, #F0E6FF);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px;
+            background-color: transparent;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .left-section {
+            flex: 0;
+            margin-left: 20px;
+        }
+
+        .logo {
+            width: 310px;
+            height: 105px;
+        }
+
+        .logo img {
+            width: 310px;
+            height: 105px;
+        }
+
+        .center-section {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .icons {
+            display: flex;
+            gap: 30px;
+        }
+
+        .icons img {
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .icons img:hover {
+            transform: scale(1.1);
+        }
+
+        h1 {
+            font-size: 64px;
+            color: #6B4E8B;
+            margin-top: 0px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #6B4E8B;
+            margin: 20px 0;
+        }
+
+        .about-content {
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-content p {
+            font-size: 20px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .about-content img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .about-us-text {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer {
+            padding: 20px;
+            margin-top: 40px;
+            text-align: center;
+            background-color: #E6FFE6;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>About Us</h1>
+    
+    <div class="about-content">
+        <h2>Quizzing You</h2>
+        <p>
+            Quizzing You is a web-based English quiz platform designed specifically for primary school students aged 7 to 12. It offers an engaging and structured approach to language learning, helping students enhance their English skills in a fun and interactive way.
+        </p>
+
+        <h2>Our Mission</h2>
+        <p>
+            At Quizzing You, our mission is to create an educational space where young learners can develop their English language skills through interactive quizzes. We strive to make learning enjoyable and accessible, empowering students to study independently while building their confidence in English.
+        </p>
+
+        <h2>What We Offer</h2>
+        <p>
+            We offer a variety of quiz formats, including Fill-in-the-Blank and Matching Words exercises, designed to be both engaging and interactive. The user-friendly interface makes it easy for students to complete quizzes, encouraging them to participate more willingly. Each quiz is tailored to different grade levels (ranging from 1 to 6 levels of difficulty) and covers key English topics such as Grammar, Idioms, Verbs, and Vocabulary.
+        </p>
+
+        <h2>Why Choose Us?</h2>
+        <p>
+            🤏🏻 Short learning curve <br>
+            📈 Focus on educational growth<br>
+            🥳 Makes learning both fun and effective<br>
+            👩🏻‍💻 Supports academic success and development<br>
+            ✨ Intuitive design for an easy-to-navigate user experience
+        </p>
+
+        <div class="about-us-text">
+            <h2>Join Us Today!</h2>
+            <p>
+                Start your learning journey with us today and become part of a growing community that values knowledge and growth. Together, we can achieve more!
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Quizzing You. All rights reserved.</p>
+    </footer>
+</body>
+</html>

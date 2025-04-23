@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzing You</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            text-align: center;
+            background: linear-gradient(135deg, #E6FFE6, #F0E6FF);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px;
+            background-color: transparent;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .left-section {
+            flex: 0;
+            margin-left: 20px;
+        }
+
+        .center-section {
+            flex: 0;
+            margin-left: 50px;
+        }
+
+        .logo {
+            width: 310px;
+            height: 105px;
+        }
+
+        .logo img {
+            width: 310px;
+            height: 105px;
+        }
+
+        .center-section {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+        }
+
+        .join-game-container {
+            background: linear-gradient(to right, #82ec76, #9e76f3);
+            border-radius: 25px;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: auto;
+            min-width: 400px;
+            height: 60px;
+            font-size: 22px;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .join-game-container:hover {
+            transform: scale(1.02);
+            background: linear-gradient(145deg, #9e76f3, #82ec76);
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .join-game-text {
+            color: white;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .join-game-pin {
+            background-color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 5px 10px;
+            font-size: 16px;
+            text-align: center; 
+            height: 20px;
+            width: 150px;
+            margin-left: 10px;
+            color: #333;
+        }
+
+        .join-game-pin::placeholder {
+            color: #999;
+        }
+
+        .join-game-pin::-webkit-inner-spin-button,
+        .join-game-pin::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .icons {
+            display: flex;
+            gap: 30px;
+        }
+
+        .icons img {
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+        }
+
+        .icons img:hover {
+            transform: scale(1.1);
+        }
+
+        .carousel {
+            width: 95%;
+            height: 360px;
+            margin: 30px auto;
+            background-image: url('images/hp4.png');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .carousel-container {
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            width: 25%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .carousel-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .carousel-image {
+            width: 500px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .carousel-text {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .carousel-text .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            background: linear-gradient(145deg, #82ec76, #9e76f3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .carousel-text h3 {
+            color: #6B4E8B;
+            font-size: 32px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .carousel-text p {
+            color: #666;
+            font-size: 20px;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #6B4E8B;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(107, 78, 139, 0.8);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(107, 78, 139, 1);
+        }
+
+        .carousel-btn.prev {
+            left: 20px;
+        }
+
+        .carousel-btn.next {
+            right: 20px;
+        }
+
+        h2 {
+            font-size: 36px;
+            color: #6B4E8B;
+            margin: 40px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .grade-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            margin-bottom: 50px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grade-box {
+            background: linear-gradient(145deg, #90EE90, #8A2BE2);
+            width: 350px;
+            height: 200px;
+            border: 3px solid rgba(130, 236, 118, 0.3); 
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .grade-box::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:  radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+            opacity: 0.2;
+            
+        }
+
+        .grade-box::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .grade-box:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(107, 78, 139, 0.3);
+            animation: bounce 0.5s ease;
+        }
+
+        .grade-box:hover::after {
+            transform: scale(1);
+        }
+
+        .grade-box:nth-child(-n+3) {
+            background: linear-gradient(145deg,#82ec76, #996cf9);
+        }
+
+        .grade-box:nth-child(n+4):nth-child(-n+6) {
+            background: linear-gradient(145deg, #9e76f3, #82ec76);
+        }
+
+        .grade-box:nth-child(n+7) {
+            background: linear-gradient(145deg,  #a378d3, #7ef071);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .grade-box span {
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(107, 78, 139, 0.3);
+            font-family: 'Comic Neue', cursive;
+            letter-spacing: 1px;
+        }
+
+        .grade-box .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .about-us-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Adjust spacing */
+            width: 100%;
+        }
+
+        .about-us {
+            font-size: 20px;
+            font-weight: bold;
+            color: #8A2BE2;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #8A2BE2;
+            border-radius: 15px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .about-us:hover {
+            background: #8A2BE2;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .settings-container {
+            position: relative;
+        }
+
+        .settings-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+        }
+
+        .settings-dropdown.show {
+            display: block;
+        } 
+        
+        .logout-btn {
+            padding: 12px 20px;
+            width: 100%;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: 'Comic Neue', cursive;
+            color: #6B4E8B;
+            font-size: 16px;
+            text-align: left;
+            transition: background 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background: #F0E6FF;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <script src="validateQuizID.js"></script>
+    <header class="header">
+        <a href="HomePage.S.html" class="home">
+            <div class="left-section">
+                <img src="images/logo2.png" alt="Logo" class="logo">
+            </div>
+        </a>
+
+        <div class="center-section">
+            <form action="validateQuizID.php" method="POST">
+                <div class="join-game-container">
+                    <span class="join-game-text">Join Game? Enter Code:</span>
+                    <input type="text" name="quizID" class="join-game-pin" placeholder="Enter QuizID" required>
+                </div>
+            </form>
+        </div>
+        
+        
+        <div class="right-section">
+            <div class="icons">
+                <img src="images/user.icon.png" alt="User" id="userIcon" onclick="openPopup('student')">
+                <!-- profile-->
+                <div id="popup" class="popup" >
+                    <button class="close" onclick="closePopup()">X</button>
+                    <h2>Profile</h2>    
+                    
+                    <div class="form-group">
+                        <label for="Id">ID:</label>
+                        <input type="text" id="userID" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullname">Fullname:</label>
+                        <input type="text" id="fullname"><br>
+                        <span id="nameError" class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email"><br>
+                        <span id="emailError" class="error-message"></span>
+                    </div>
+
+                    <div class="button-container">
+                        <button class="resetpw" onclick="window.location.href='forgot_pw.S.html'">Reset Password</button><br>
+                        <button class="save" id="saveProfileBtn">Save Changes</button>
+                    </div>
+                </div>    
+                <link rel="stylesheet" href="popupStyles.css">
+                <script src="popupScript.js"></script>
+
+                <div class="settings-container">
+                    <img src="images/setting.icon.png" alt="Settings" id="settingsIcon">
+                    <div class="settings-dropdown" id="settingsDropdown">
+                        <button class="logout-btn" onclick="logout()">Log Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="carousel">
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <img src="images/hp1.png" alt="Homepage Banner" class="carousel-image">
+                    <div class="carousel-text">
+                        <h3>Master Your Learning Journey</h3>
+                        <p>Discover effective study techniques and interactive quizzes designed to help you excel in your studies. Our platform makes learning fun and engaging!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <img src="images/hp2.png" alt="Achievements" class="carousel-image">
+                    <div class="carousel-text">
+                        <h3>Track Your Progress</h3>
+                        <p>Monitor your improvement with detailed progress tracking and earn achievements as you complete quizzes. Watch yourself grow!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <img src="images/hp3.png" alt="Various Subjects" class="carousel-image">
+                    <div class="carousel-text">
+                        <h3>Diverse Subject Coverage</h3>
+                        <p>From Mathematics to Language Arts, we offer a wide range of subjects to help you strengthen your knowledge across different areas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <img src="images/hp4.png" alt="Learning Community" class="carousel-image">
+                    <div class="carousel-text">
+                        <h3>Join Our Learning Community</h3>
+                        <p>Connect with fellow learners, share your achievements, and participate in educational challenges to make learning more exciting!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-btn prev">←</button>
+        <button class="carousel-btn next">→</button>
+        <div class="carousel-nav">
+            <div class="carousel-dot active"></div>
+            <div class="carousel-dot"></div>
+            <div class="carousel-dot"></div>
+            <div class="carousel-dot"></div>
+        </div>
+    </div>
+
+    <h2>Choose what you want to learn!</h2>
+
+    <div class="grade-container">
+        <!-- First row -->
+        <div class="grade-box" id="grade1">
+            <a href="Q.Choose.G1.html"></a>
+                <div class="icon">📚</div>
+                <span>Grade 1</span>
+            </a>
+        </div>
+        <div class="grade-box" id="grade2">
+            <a href="Q.Choose.G2.html"></a>
+                <div class="icon">✏️</div>
+                <span>Grade 2</span>
+            </a>
+        </div>
+        <div class="grade-box" id="grade3">
+            <a href="Q.Choose.G3.html">
+                <div class="icon">📖</div>
+                <span>Grade 3</span>
+            </a>
+        </div>
+        
+        <!-- Second row -->
+        <div class="grade-box" id="grade4">
+            <a href="Q.Choose.G4.html">
+                <div class="icon">📖</div>
+                <span>Grade 4</span>
+            </a>
+        </div>
+        <div class="grade-box" id="grade5">
+            <a href="Q.Choose.G5.html">
+                <div class="icon">📖</div>
+                <span>Grade 5</span>
+            </a>
+        </div>
+        <div class="grade-box" id="grade6">
+            <a href="Q.Choose.G6.html">
+                <div class="icon">📖</div>
+                <span>Grade 6</span>
+            </a>
+        </div>
+        
+        <!-- Third row -->
+        <a href="AboutUs.S.html" class="home">
+            <div class="grade-box">
+                <div class="icon">ℹ️</div>
+                <span>About Us</span>
+            </div>
+        </a>
+        
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("grade1").addEventListener("click", function() {
+                window.location.href = "Q.Choose.G1.html";
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("grade2").addEventListener("click", function() {
+                window.location.href = "Q.Choose.G2.html";
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("grade3").addEventListener("click", function() {
+                window.location.href = "Q.Choose.G3.html";
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("grade4").addEventListener("click", function() {
+                window.location.href = "Q.Choose.G4.html";
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("grade5").addEventListener("click", function() {
+                window.location.href = "Q.Choose.G5.html";
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("grade6").addEventListener("click", function() {
+                window.location.href = "Q.Choose.G6.html";
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.carousel-container');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const prevBtn = document.querySelector('.carousel-btn.prev');
+            const nextBtn = document.querySelector('.carousel-btn.next');
+            let currentSlide = 0;
+
+            function updateSlide() {
+                container.style.transform = `translateX(-${currentSlide * 25}%)`;
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                updateSlide();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateSlide();
+            });
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    updateSlide();
+                });
+            });
+
+            // Auto-advance slides every 5 seconds
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateSlide();
+            }, 5000);
+        });
+
+        const settingsIcon = document.getElementById('settingsIcon');
+        const settingsDropdown = document.getElementById('settingsDropdown');
+
+        settingsIcon.addEventListener('click', function(e) {
+            e.stopPropagation();
+            settingsDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!settingsDropdown.contains(e.target) && !settingsIcon.contains(e.target)) {
+                settingsDropdown.classList.remove('show');
+            }
+        });
+
+        function logout() {
+            window.location.href = 'INDEX.html';
+        }       
+    </script>
+</body>
+</html>

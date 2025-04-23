@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password - Quizzing You</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Neucha:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Neucha', cursive;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #E6FFE6, #F0E6FF);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            background: white;
+        }
+
+        .image-section {
+            flex: 1;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .image-section img {
+            max-width: 90%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 40px 60px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #6B4E8B;
+            font-weight: 650;
+            font-size: 45px;  
+            margin-bottom: 35px;
+            margin-top: 0;   
+            text-align: left;   
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #6B4E8B;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #6B4E8B;
+            border-radius: 25px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .info {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+            margin-bottom: 4px;
+        }
+
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .checkbox-container label {
+            font-size: 16px;
+            margin: 0;
+            color: #6B4E8B;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, #82ec76, #9e76f3);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 30px 0;
+        }
+
+        .links-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        a {
+            display: block;
+            color: #6B4E8B;
+            text-decoration: none;
+            margin: 8px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-section">
+            <img src="images/loginP.png" alt="Reset Password illustration">
+        </div>
+        <div class="form-section">
+            <h1>Reset Password</h1>
+            <form action="ProcessResetPW.P.php" method="POST">
+                <div class="form-group">
+                    <label for="parentID">Parent ID</label>
+                    <input type="text" id="parentID" name="parentID" placeholder="Enter your parent ID" autocomplete="off" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <div class="password-container">
+                        <input type="password" id="newPassword" name="newPassword" placeholder="Enter your new password" 
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\-_\.@]{8,}$" 
+                           title="Password must be at least 8 characters, contain both letters and numbers, and only these symbols: -_.@" 
+                           autocomplete="off" required>
+                        <div class="info">
+                            Password must be at least 8 characters, and contain both letters and numbers. Only these symbols can be used: _-@.
+                        </div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="showNewPassword" onclick="togglePassword('newPassword')">
+                            <label for="showNewPassword">Show Password</label>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="password-container">
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your new password" 
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\-_\.@]{8,}$" 
+                           title="Password must match the requirements above" 
+                           autocomplete="off" required>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="showConfirmPassword" onclick="togglePassword('confirmPassword')">
+                            <label for="showConfirmPassword">Show Password</label>
+                        </div>
+                    </div>
+                </div>
+            
+                <button type="submit" name="reset">RESET PASSWORD</button>
+                
+                <div class="links-container">
+                    <a href="LOGIN.P.html">Back to Login</a>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+    <script>
+        function togglePassword(inputID) {
+            const input = document.getElementById(inputID);
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        }
+        
+        function showPopUpMessage(message, type) {
+            var popup = document.getElementById("popupMessage");
+            var popupContent = document.getElementById("popupMessageContent");
+
+            popupContent.textContent = message;
+
+            popup.style.display = "block";
+
+            popup.style.backgroundColor = (type === 'success') ? '#4CAF50' : '#F44336';
+
+            document.getElementById("closePopup").onclick = function() {
+                popup.style.display = "none";
+            };
+
+            window.onclick = function(event) {
+                if (event.target === popup) {
+                    popup.style.display = "none";
+                }
+            };
+        }
+    </script>
+</body>
+</html>

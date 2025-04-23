@@ -1,0 +1,284 @@
+<!--Choose Question Type -> Matching-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzing You</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            text-align: center;
+            background: linear-gradient(135deg, #E6FFE6, #F0E6FF);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float 8s infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100px) translateX(20px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px;
+            background-color: transparent;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .left-section {
+            flex: 0;
+            margin-left: 20px;
+        }
+
+        .logo {
+            width: 310px;
+            height: 105px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        .logo img {
+            width: 310px;
+            height: 105px;
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .icons {
+            display: flex;
+            gap: 30px;
+        }
+
+        .icons img {
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .icons img:hover {
+            transform: scale(1.2) rotate(10deg);
+            animation: wiggle 0.5s ease;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        h2 {
+            font-size: 42px;
+            color: #6B4E8B;
+            margin: 40px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .question-types {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            margin: 50px auto;
+            max-width: 1200px;
+        }
+
+        .question-box {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            width: 250px;
+            height: 250px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+        }
+
+        .question-box:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(107, 78, 139, 0.2);
+            border-color: #6B4E8B;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 8px 15px rgba(107, 78, 139, 0.2); }
+            50% { box-shadow: 0 12px 20px rgba(107, 78, 139, 0.4); }
+            100% { box-shadow: 0 8px 15px rgba(107, 78, 139, 0.2); }
+        }
+
+        .question-box:nth-child(1) { background: linear-gradient(145deg, #FFE5E5, #FFD6D6); }
+        .question-box:nth-child(2) { background: linear-gradient(145deg, #E5FFE5, #D6FFD6); }
+        .question-box:nth-child(3) { background: linear-gradient(145deg, #E5E5FF, #D6D6FF); }
+
+        .question-box .icon {
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 48px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .question-box:hover .icon {
+            transform: rotate(360deg);
+        }
+
+        .question-box span {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6B4E8B;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .question-box:hover span {
+            transform: scale(1.1);
+            letter-spacing: 1px;
+        }
+
+        /* Add confetti effect */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #6B4E8B;
+            animation: confetti-fall 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Add floating bubbles -->
+    <div class="bubble" style="left: 10%; width: 50px; height: 50px;"></div>
+    <div class="bubble" style="left: 20%; width: 30px; height: 30px; animation-delay: 2s;"></div>
+    <div class="bubble" style="left: 70%; width: 40px; height: 40px; animation-delay: 1s;"></div>
+    <div class="bubble" style="left: 80%; width: 60px; height: 60px; animation-delay: 3s;"></div>
+
+    <header class="header">
+        <a href="HomePage.T.html" class="home">
+            <div class="left-section">
+                <img src="images/logo2.png" alt="Logo" class="logo">
+            </div>
+        </a>
+        <div class="right-section">
+            <div class="icons">
+                <img src="images/user.icon.png" alt="User" id="userIcon" onclick="openPopup('student')">
+                <!-- profile-->
+                <div id="popup" class="popup" >
+                    <button class="close" onclick="closePopup()">X</button>
+                    <h2>Profile</h2>    
+                    
+                    <div class="form-group">
+                        <label for="Id">ID:</label>
+                        <input type="text" id="userID" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullname">Fullname:</label>
+                        <input type="text" id="fullname"><br>
+                        <span id="nameError" class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email"><br>
+                        <span id="emailError" class="error-message"></span>
+                    </div>
+
+                    <div class="button-container">
+                        <button class="resetpw" onclick="window.location.href='forgot_pw.S.html'">Reset Password</button><br>
+                        <button class="save" id="saveProfileBtn">Save Changes</button>
+                    </div>
+
+                </div>    
+                <link rel="stylesheet" href="popupStyles.css">
+                <script src="popupScript.js"></script>
+    </header>
+
+    <h2>Choose a Question Type</h2>
+
+    <div class="question-types">
+        <div class="question-box" data-template="CreateMatching.html">
+            <div class="icon">🔄</div>
+            <span>Matching</span>
+        </div>
+    </div>
+
+    <script>
+        const questionBoxes = document.querySelectorAll('.question-box');
+        
+        questionBoxes.forEach(box => {
+            box.addEventListener('mouseenter', createConfetti);
+            box.addEventListener('click', loadTemplate);
+        });
+
+        function loadTemplate(event) {
+            const templateUrl = event.currentTarget.dataset.template;
+            window.location.href = templateUrl;
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 10; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD'][Math.floor(Math.random() * 5)];
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+
+    </script>
+</body>
+</html>

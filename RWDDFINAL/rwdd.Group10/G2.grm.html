@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill in the Blank - Quizzing You</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Comic Neue', cursive; }
+        body { background: #ecf2fa; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .quiz-container { width: 90%; max-width: 800px; background: white; border-radius: 30px; padding: 30px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); }
+        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .progress, .timer { font-size: 16px; font-weight: 500; color: #9E76F3; }
+        .question { text-align: center; font-size: 24px; color: #6B4E8B; margin: 40px 0; padding: 20px; background: rgba(158, 118, 243, 0.05); border-radius: 20px; display: none; }
+        .question.active { display: block; }
+        .answer-input { width: 120px; font-size: 24px; text-align: center; border: 2px solid #82EC76; border-radius: 15px; padding: 5px; color: #6B4E8B; }
+        .answer-input.correct { background: #a7e3a0; }
+        .answer-input.incorrect { background: #f47e7e; }
+        .matching-container { display: flex; justify-content: space-around; margin-top: 20px; }
+        .matching-column { display: flex; flex-direction: column; }
+        .matching-box { padding: 15px; margin: 5px; background: #ddd; border-radius: 10px; cursor: pointer; text-align: center; font-size: 18px; }
+        .matching-box.selected { background: #fdd835; }
+        .matching-box.correct { background: #a7e3a0; }
+        .matching-box.incorrect { background: #f47e7e; }
+        .navigation { display: flex; justify-content: space-between; margin-top: 30px; }
+        .nav-button { background: linear-gradient(to right, #82EC76, #9E76F3); border: none; border-radius: 50px; padding: 12px 25px; font-size: 16px; color: white; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <form action="saveSummary.php" method="POST" id="quizForm">
+        <input type="hidden" name="studentID" value=studentID>
+        <input type="hidden" name="quizID" value="5">
+        <input type="hidden" name="durationTaken" id="durationTaken">
+        <input type="hidden" name="score" id="scoreInput">
+
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <div class="progress">Question <span id="currentQuestion">1</span> of 3</div>
+            <div class="timer">Time: <span id="time">0:00</span></div>
+        </div>
+
+        <div class="question active" id="q1">
+            She <input type="text" class="answer-input" placeholder="type" data-answer="was"> (was/were) happy yesterday.
+            <input type="hidden" name="questionID" value="13">
+        </div>
+
+        <div class="question" id="q2">
+            We <input type="text" class="answer-input" placeholder="type" data-answer="have"> (has/have) two dogs. 
+            <input type="hidden" name="questionID" value="14">
+        </div>
+
+        <div class="question" id="q3">
+            <h3>Match the correct subject with the verb</h3>
+            <p>Select a subject from the left column, then match it with its correct verb on the right.</p>
+            <div class="matching-container">
+                <div class="matching-column">
+                    <div class="matching-box" data-type="sentence" data-value="i">I ___ to school every day.</div>
+                    <div class="matching-box" data-type="sentence" data-value="she">She ___ a beautiful dress.</div>
+                </div>
+                <div class="matching-column">
+                    <div class="matching-box" data-type="verb" data-value="has">has</div>
+                    <div class="matching-box" data-type="verb" data-value="go">go</div>
+                </div>
+                <input type="hidden" name="questionID" value="15">
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="changeQuestion(-1)">Previous</button>
+            <button class="nav-button" id="nextBtn" onclick="changeQuestion(1)">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        let totalQuestions = 3;
+        let score = 0;
+        let selectedBox = null;
+        let timer;
+        let matchedPairs = 0;
+        let timeElapsed = 0;
+        const correctMatches = { 'i': 'go', 'she': 'has' };
+
+    function startTimer() {
+        timer = setInterval(() => {
+            timeElapsed++;
+            let minutes = Math.floor(timeElapsed / 60);
+            let seconds = timeElapsed % 60;
+            document.getElementById("time").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            localStorage.setItem("timeElapsed", timeElapsed);
+        }, 1000);
+    }
+
+    function changeQuestion(direction) {
+        event.preventDefault();
+        document.getElementById(`q${currentQuestion}`).classList.remove('active');
+
+        currentQuestion += direction;
+
+        if (currentQuestion > totalQuestions) {
+            clearInterval(timer);
+            localStorage.setItem("score", score + matchedPairs);
+            localStorage.setItem("timeElapsed", timeElapsed);
+            window.location.href = "G2.grm.summary.html";
+            return;
+        }
+
+        document.getElementById(`q${currentQuestion}`).classList.add('active');
+        document.getElementById("currentQuestion").innerText = currentQuestion;
+    }
+
+    function saveQuizResults() {
+        clearInterval(timer);
+        localStorage.setItem("score", score + matchedPairs);
+        localStorage.setItem("timeElapsed", timeElapsed);
+        window.location.href = "G2.grm.summary.html";
+    }
+
+    document.querySelectorAll('.answer-input').forEach(input => {
+        input.addEventListener('change', function() {
+            let correctAnswer = this.dataset.answer;
+            if (this.value.toLowerCase().trim() === correctAnswer) {
+                this.classList.add('correct');
+                this.classList.remove('incorrect');
+                score++;
+            } else {
+                this.classList.add('incorrect');
+                this.classList.remove('correct');
+            }
+        });
+    });
+
+    document.querySelectorAll('.matching-box').forEach(box => {
+        box.addEventListener('click', function() {
+            if (!selectedBox) {
+                if (this.dataset.type === 'sentence') {
+                    selectedBox = this;
+                    this.classList.add('selected');
+                }
+            } else if (this.dataset.type === 'verb') {
+                const isCorrect = correctMatches[selectedBox.dataset.value] === this.dataset.value;
+                selectedBox.classList.add(isCorrect ? 'correct' : 'incorrect');
+                this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                if (isCorrect) matchedPairs++;
+                selectedBox = null;
+            }
+        });
+    });
+    document.addEventListener("DOMContentLoaded", startTimer);
+
+    function retakeQuiz() {
+        console.log("Retaking quiz...");
+        localStorage.clear();
+        window.location.href = "Q.ReadyMenu.G2.grm.html";
+    }
+
+    function goHome() {
+        console.log("Going to homepage...");
+        window.location.href = "HomePage.S.html";
+    }
+    </script>
+</body>
+</html>

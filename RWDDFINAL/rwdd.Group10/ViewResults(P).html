@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Results</title>
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            text-align: center;
+            background: linear-gradient(135deg, #E6FFE6, #F0E6FF);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px;
+            background-color: transparent;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .left-section {
+            flex: 0;
+            margin-left: 20px;
+        }
+
+        .center-section {
+            flex: 0;
+            margin-left: 50px;
+        }
+
+        .logo {
+            width: 310px;
+            height: 105px;
+        }
+
+        .logo img {
+            width: 310px;
+            height: 105px;
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .icons {
+            display: flex;
+            gap: 30px;
+        }
+
+        .icons img {
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .icons img:hover {
+            transform: scale(1.1);
+        }
+        
+        #results {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+    
+        th, td {
+            border: 1px solid #6B4E8B;
+            padding: 8px;
+            text-align: center;
+        }
+    
+        th {
+            background-color: #6B4E8B;
+            color: white;
+        }
+
+        #searchform{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* Space between input and button */
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        #studentID {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #6B4E8B;
+            border-radius: 5px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        #studentID:focus {
+            border-color: #8A2BE2;
+            box-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
+        }
+
+        #searchForm button {
+            background-color: #6B4E8B;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+        
+        #searchForm button:hover {
+            background-color: #8A2BE2;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="HomePage.P.html" class="home">
+            <div class="left-section">
+                <img src="images/logo2.png" alt="Logo" class="logo">
+            </div>
+        </a>
+        <div class="right-section">
+            <div class="icons">
+                <img src="images/user.icon.png" alt="User" id="userIcon" onclick="openPopup('student')">
+                <!-- profile-->
+                <div id="popup" class="popup" >
+                    <button class="close" onclick="closePopup()">X</button>
+                    <h2>Profile</h2>    
+                    
+                    <div class="form-group">
+                        <label for="Id">ID:</label>
+                        <input type="text" id="userID" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullname">Fullname:</label>
+                        <input type="text" id="fullname"><br>
+                        <span id="nameError" class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email"><br>
+                        <span id="emailError" class="error-message"></span>
+                    </div>
+
+                    <div class="button-container">
+                        <button class="resetpw" onclick="window.location.href='forgot_pw.S.html'">Reset Password</button><br>
+                        <button class="save" id="saveProfileBtn">Save Changes</button>
+                    </div>
+
+                </div>    
+                <link rel="stylesheet" href="popupStyles.css">
+                <script src="popupScript.js"></script>
+    </header>
+    <form id="searchForm">
+        <input type="number" id="studentID" name="studentID" placeholder="Enter StudentID" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <div id="results"></div>
+
+    <script>
+    document.getElementById("searchForm").addEventListener("submit", function(event) {
+        event.preventDefault(); 
+
+        let studentID = document.getElementById("studentID").value;
+
+        if (!/^\d+$/.test(studentID)) {
+            alert("Please enter a valid Student ID (numbers only).");
+            return;
+        }
+
+        fetch(`showResult.php?studentID=${studentID}`)
+            .then(response => response.json())
+            .then(data => {
+                let resultsDiv = document.getElementById("results");
+                resultsDiv.innerHTML = ""; // Clear previous results
+
+                if (data.error) {
+                    resultsDiv.innerHTML = `<p style="color: red;">${data.error}</p>`;
+                    return;
+                }
+
+                if (!data.success) {
+                    resultsDiv.innerHTML = `<p>${data.message}</p>`;
+                    return;
+                }
+
+                let table = document.createElement("table");
+                table.innerHTML = `
+                    <tr>
+                        <th>Attempt ID</th>
+                        <th>Student ID</th>
+                        <th>Quiz ID</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Score</th>
+                        <th>Duration (min)</th>
+
+                    </tr>
+                `;
+
+                data.data.forEach(row => {
+                    let tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${row.attemptID}</td>
+                        <td>${row.studentID}</td>
+                        <td>${row.quizID}</td>
+                        <td>${row.date}</td>
+                        <td>${row.time}</td>
+                        <td>${row.score}</td>
+                        <td>${row.duration}</td>
+                <!--got rid of view-->
+                    `;
+                    table.appendChild(tr);
+                });
+
+                resultsDiv.appendChild(table);
+            })
+            .catch(error => console.error("Error fetching results:", error));
+    });
+    </script>
+</body>
+</html>

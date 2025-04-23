@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Neue', cursive;
+}
+
+body {
+    background: #ecf2fa;  
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    animation: float 6s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.15),
+        0 1px 8px rgba(0, 0, 0, 0.05);
+}
+
+.container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shimmer {
+    100% { transform: translateX(100%); }
+}
+
+/* Title and Instructions */
+.matching-title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #6B4E8B;
+}
+
+.matching-hint {
+    font-size: 14px;
+    color: #6B4E8B;
+    margin-bottom: 25px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Matching Boxes */
+.matching-boxes {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    gap: 150px;
+}
+
+.prompt-box, .answer-box {
+    background: white;
+    border: 2px solid #82EC76;
+    border-radius: 15px;
+    padding: 15px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    min-height: 50px;
+    text-align: center;
+    width: calc(50% - 10px); 
+    margin: 15px 0;
+    display: flex; 
+    align-items: center;  
+    justify-content: center; 
+    white-space: nowrap; 
+}
+
+
+.prompt-box:hover, .answer-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(158, 118, 243, 0.2);
+}
+
+.selected {
+    background: #b7b6ff;
+    color: white;
+    border-color: #b7b6ff;
+}
+
+.matched {
+    background: #90EE90;
+    color: white;
+    border-color: #90EE90;
+}
+
+.incorrect {
+    background: #f47e7e;
+    color: white;
+    border-color: #f47e7e;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+button[type="submit"] {
+    background: linear-gradient(to right, #82EC76 0%, #9E76F3 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+button[type="submit"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: 0.5s;
+}
+            
+button[type="submit"]:hover::before {
+    left: 100%;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+button[type="submit"]:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+button[type="submit"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+button[type="submit"].next {
+    background: linear-gradient(to right, #9E76F3 0%, #82EC76 100%); 
+}
+
+@media (max-width: 600px) {
+    .matching-boxes {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .prompt-box, .answer-box {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    button[type="submit"]{
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+form {
+    text-align: center;
+    font-size: 24px;
+    color: #6B4E8B;
+    background: rgba(158, 118, 243, 0.15); 
+    border-radius: 20px; 
+    padding: 30px; 
+    width: 600px; 
+    height: 400px; 
+    margin: 30px auto; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; 
+}

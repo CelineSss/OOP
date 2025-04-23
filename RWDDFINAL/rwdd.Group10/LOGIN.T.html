@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page - Quizzing You</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Neucha:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Neucha', cursive;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #E6FFE6, #F0E6FF);
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .image-section {
+            flex: 1;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 40px 80px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 0;
+        }
+
+        h1 {
+            color: #6B4E8B;
+            font-weight: 600;
+            font-size: 65px;
+            margin-bottom: 30px;
+            margin-top: -20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 20px;
+            top: 70%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+
+        label {
+            display: block;
+            color: #6B4E8B;
+            font-size: 25px;
+            margin-bottom: 14px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #6B4E8B;
+            border-radius: 25px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .info {
+            font-size: 17px;
+            color: #666;
+            margin-top: 6px;
+            margin-bottom: 3px;
+        }
+
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .checkbox-container input[type="checkbox"] {
+            width: 20px;  
+            height: 20px;  
+            cursor: pointer;
+        }
+
+        .checkbox-container label {
+            font-size: 20px;
+            margin: 0;
+            color: #6B4E8B;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, #82ec76, #9e76f3);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 30px 0;
+            font-family: 'Neucha', cursive;
+        }
+
+        .links-container {
+            text-align: center;
+        }
+
+        a {
+            display: block;
+            color: #6B4E8B;
+            text-decoration: none;
+            margin: 10px 0;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" action="ProcessLogin.T.php">
+        <div class="container">
+            <div class="image-section">
+                <img src="images/loginS.png" alt="Login illustration">
+            </div>
+            <div class="form-section">
+                <h1>Log In</h1>
+                
+                <div class="form-group">
+                    <label for=""teacherID>TeacherID</label>
+                    <input type="text" name="teacherID" id="teacherID" minlength="1" maxlength="5" 
+                           pattern="\d{1,5}" placeholder="Enter TeacherID" 
+                           title="Teacher should be 1 to 5 digits" required>
+                </div>
+                
+                <div class="form-group" style="position: relative;">
+                    <label for="teacherPW">Password</label>
+                    <input type="password" name="teacherPW" id="teacherPW" placeholder="Enter password" required>
+                    <span class="show-password" onclick="togglePassword()">👁️</span>
+                </div>
+
+                <script>
+                    function togglePassword() {
+                        const passwordField = document.getElementById("teacherPW");
+                        const passwordIcon = document.querySelector(".show-password");
+
+                        if (passwordField.type === "password") {
+                            passwordField.type = "text";
+                            passwordIcon.textContent = "🙈"; 
+                        } else {
+                            passwordField.type = "password";
+                            passwordIcon.textContent = "👁️"; 
+                        }
+                    }
+                </script>
+
+                <button type="submit" name="LogIn">LOG IN</button>
+
+                <div class="links-container">
+                    <a href="forgot_pw.T.html">Forgot Password?</a>
+                    <a href="Register.T.php">Don't have an account? Click here to Register!</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

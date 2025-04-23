@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Matching Quiz</title>
+    <link rel="stylesheet" href="matching.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">    
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='HomePage.T.html'">
+        <i class="fas fa-arrow-left"></i> Back
+    </button>
+
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Create Matching Question</h1>
+            <p>Create your matching pairs below</p>
+        </div>
+
+        <form id="quizForm" action="ProcessCreateQuiz.php" method="post">
+            <select class="input-field" name="category" required>
+                <option value="" disabled selected>Select Category</option>
+                <option value="Verb">Verb</option>
+                <option value="Idioms">Idioms</option>
+                <option value="Vocabulary">Vocabulary</option>
+                <option value="Grammar">Grammar</option>
+            </select>
+            <select class="input-field" name="grade" required>
+                <option value="" disabled selected>Select Grade</option>
+                <option value="1">Grade 1</option>
+                <option value="2">Grade 2</option>
+                <option value="3">Grade 3</option>
+                <option value="4">Grade 4</option>
+                <option value="5">Grade 5</option>
+                <option value="6">Grade 6</option>
+            </select>
+            <input type="number" class="input-field" name="totalMarks" placeholder="Enter Marks" min="1" required>
+
+            <div id="matchingPairs">
+                <div class="matching-pair-container">
+                    <div class="matching-column">
+                        <input type="text" class="matching-box" name="prompts[]" placeholder="Enter Prompt" required>
+                    </div>
+                    <div class="matching-column">
+                        <input type="text" class="matching-box" name="responses[]" placeholder="Enter Answer" required>
+                    </div>
+                    <button type="button" class="remove-pair" onclick="removePair(this)">-</button>
+                </div>
+            </div>
+        
+
+            <div class="add-remove-container">
+                <button class="preview-btn" type="button" onclick="addNewPair()">
+                    <i class="fas fa-plus"></i> Add Pair
+                </button>
+            </div>
+            <div class="button-container">
+                <button class="save-btn" type="submit">Save Quiz</button>
+            </div>
+        </form>
+        
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const totalMarksInput = document.querySelector('input[name="totalMarks"]');
+
+            totalMarksInput.addEventListener("input", function () {
+                if (this.value < 1) {
+                    this.value = "";  
+                }
+            });
+        });
+        document.getElementById('addPair').addEventListener('click', function () {
+            let matchingPairsContainer = document.getElementById('matchingPairs');
+
+            // New pair container
+            let newPair = document.createElement('div');
+            newPair.classList.add('matching-pair-container');
+
+            // Prompt input
+            let promptInput = document.createElement('input');
+            promptInput.type = 'text';
+            promptInput.classList.add('matching-box'); // Apply the same style
+            promptInput.name = 'prompts[]';
+            promptInput.placeholder = 'Enter Prompt';
+            promptInput.required = true;
+
+            // Answer input
+            let answerInput = document.createElement('input');
+            answerInput.type = 'text';
+            answerInput.classList.add('matching-box'); // Apply the same style
+            answerInput.name = 'responses[]';
+            answerInput.placeholder = 'Enter Answer';
+            answerInput.required = true;
+
+            // Remove button
+            let removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.classList.add('remove-pair');
+            removeButton.textContent = '-';
+            removeButton.onclick = function () {
+                newPair.remove();
+            };
+
+            newPair.appendChild(promptInput);
+            newPair.appendChild(answerInput);
+            newPair.appendChild(removeButton);
+
+            matchingPairsContainer.appendChild(newPair);
+        });
+
+        function addNewPair() {
+            const container = document.getElementById('matchingPairs');
+            const newPair = document.createElement('div');
+            newPair.className = 'matching-pair-container';
+
+            newPair.innerHTML = `
+                <div class="matching-column">
+                    <input type="text" class="matching-box" name="prompts[]" placeholder="Enter Prompt" required>
+                </div>
+                <div class="matching-column">
+                    <input type="text" class="matching-box" name="responses[]" placeholder="Enter Answer" required>
+                </div>
+                <button type="button" class="remove-pair">-</button>
+            `;
+
+            container.appendChild(newPair);
+
+            newPair.querySelector('.remove-pair').addEventListener('click', function () {
+                removePair(this);
+            });
+
+            updateRemoveButtonState();
+        }
+
+        function removePair(button) {
+            const pairs = document.querySelectorAll('.matching-pair-container');
+            if (pairs.length > 1) {
+                button.parentElement.remove();
+            } else {
+                alert("At least one pair of prompt and answer must exist.");
+            }
+            updateRemoveButtonState();
+        }
+
+        function updateRemoveButtonState() {
+            const pairs = document.querySelectorAll('.matching-pair-container');
+            pairs.forEach(pair => {
+                const removeButton = pair.querySelector('.remove-pair');
+                removeButton.disabled = (pairs.length === 1); // Disable if only one pair remains
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            updateRemoveButtonState();
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Summary - Quizzing You</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            text-align: center;
+            background: linear-gradient(135deg, #E6FFE6, #F0E6FF);
+            margin: 0;
+            padding: 0;
+            height: 115vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 25px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .left-section {
+            flex: initial;
+        }
+
+        .logo {
+            width: 310px;
+            height: 105px;
+            margin-left: 20px;
+        }
+
+        .summary-container {
+            width: 95%;
+            max-width: 700px;
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .summary-header {
+            font-size: 32px;
+            color: #6B4E8B;
+            margin-bottom: 5px;
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .score-section {
+            background: rgba(158, 118, 243, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 10px 0 30px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #82ec76, #9e76f3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: pulseScore 2s infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .score-circle:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulseScore {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            min-width: 150px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .stat-item:hover::after {
+            left: 100%;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            color: #6B4E8B;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 180px;
+            margin-top: 20px;
+        }
+
+        .action-button {
+            background: linear-gradient(145deg, #82ec76, #9e76f3);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 28px;
+            font-size: 22px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Comic Neue', cursive;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .action-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .action-button:hover::after {
+            left: 100%;
+        }
+
+
+        .question-item {
+            background: rgba(158, 118, 243, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-item:hover {
+            transform: translateX(10px);
+            background: rgba(158, 118, 243, 0.2);
+            padding-left: 25px;
+        }
+
+        .question-item::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .question-item:hover::after {
+            right: 15px;
+            opacity: 1;
+        }
+
+        .question-status {
+            display: inline-block;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="summary-container">
+        <h2>Quiz Complete! 🎉</h2>
+        <div class="score-circle"><span id="scoreDisplay">0</span></div>
+        <p>Time Taken: <span id="timeTaken">0:00</span></p>
+    </div>
+
+    <div class="action-buttons">
+        <button class="action-button" onclick="retakeQuiz()">Retake Quiz</button>
+        <button class="action-button back" onclick="toggleQuestions()">Back to Homepage</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        console.log("Loading summary...");
+
+        let score = localStorage.getItem("score") || "0";
+        let timeElapsed = parseInt(localStorage.getItem("timeElapsed")) || 0;
+
+        let minutes = Math.floor(timeElapsed / 60);
+        let seconds = timeElapsed % 60;
+        let formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        document.getElementById("scoreDisplay").innerText = score;
+        document.getElementById("timeTaken").innerText = formattedTime;
+    });
+
+    function retakeQuiz() {
+        console.log("Retaking quiz...");
+        localStorage.clear();
+        window.location.href = "Q.ReadyMenu.G3.verb.html";
+    }
+
+    function toggleQuestions() {
+        console.log("Going to homepage...");
+        window.location.href = "HomePage.S.html";
+    }
+    </script>
+</body>
+</html>

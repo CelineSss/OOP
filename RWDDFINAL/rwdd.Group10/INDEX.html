@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Role - Quizzing You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Neucha&display=swap" rel="stylesheet">
+    <!--connect to stylesheet.css-->
+    <link rel="stylesheet" href="stylesheet.css">
+    
+    <!-- Add these lines for background music -->
+    <link rel="stylesheet" href="audioControls.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="backgroundMusic.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="left-section">
+            <img src="images/logo2.png" alt="Logo" class="logo">
+        </div>
+    </header>
+
+    <h1>Welcome to the Fun English Quiz!</h1>
+    <h2>Please Select Your Role!</h2>
+
+    <div class="role-container">
+        <a href="LOGIN.S.html" class="role-box">
+            <img src="images/role.student1.png" alt="Students" class="default-img">
+            <img src="images/role.student2.png" alt="Students" class="hover-img">
+            <span>Students</span>
+            <div class="role-description">Start your learning adventure!</div>
+        </a>
+        <a href="LOGIN.T.html" class="role-box">
+            <img src="images/role.teacher1.png" alt="Teacher" class="default-img">
+            <img src="images/role.teacher2.png" alt="Teacher" class="hover-img">
+            <span>Teacher</span>
+            <div class="role-description">Create quizzes for your students!</div>
+        </a>
+        <a href="LOGIN.P.html" class="role-box">
+            <img src="images/role.parent1.png" alt="Parents" class="default-img">
+            <img src="images/role.parent2.png" alt="Parents" class="hover-img">
+            <span>Parents</span>
+            <div class="role-description">Track your child's progress and achievements!</div>
+        </a>
+    </div>
+
+    <!-- Add this script before closing body tag -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const bgMusic = new BackgroundMusic();
+                
+                bgMusic.audio.addEventListener('loadeddata', () => {
+                    console.log('Audio loaded successfully');
+                });
+                
+                bgMusic.audio.addEventListener('error', (e) => {
+                    console.error('Audio loading error:', e);
+                });
+                
+                console.log('Audio source:', bgMusic.audio.src);
+            } catch (error) {
+                console.error('Error initializing background music:', error);
+            }
+        });
+    </script>
+</body>
+</html>
